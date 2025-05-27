@@ -5,8 +5,105 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kwork-bk</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
         
+        header {
+            background-color: #f0f0f0;
+            padding: 15px;
+            text-align: center;
+        }
         
+        .sleng {
+            font-weight: bold;
+        }
+        
+        .slider-container {
+            position: relative;
+            max-width: 800px;
+            margin: 20px auto;
+            overflow: hidden;
+        }
+        
+        .slider {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        
+        .slide {
+            min-width: 100%;
+        }
+        
+        .slide img {
+            width: 100%;
+            display: block;
+        }
+        
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 10;
+        }
+        
+        .prev-btn {
+            left: 10px;
+        }
+        
+        .next-btn {
+            right: 10px;
+        }
+        
+        .slider-nav {
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+        }
+        
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ccc;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+        
+        .slider-dot.active {
+            background: #333;
+        }
+        
+        .get-bonus, .predict {
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px;
+        }
+        
+        .bonus-txt, .predict-txt {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+        
+        .btn-get-bonus, .ref-tg {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        
+        .second-slider {
+            margin-top: 50px;
+        }
     </style>
 </head>
 <body>
@@ -14,8 +111,10 @@
     <div class="sleng">Не являемся финансовым советчиком,<br>
          но финансы имеем</div>
   </header>
-    <div class="slider-container">
-        <div class="slider" id="slider">
+  
+  <!-- Первый слайдер -->
+    <div class="slider-container" id="sliderContainer1">
+        <div class="slider" id="slider1">
             <!-- Слайды -->
             <div class="slide">
                 <img src="photo_2025-05-27_12-27-49.jpg" alt="Фото 1">
@@ -28,13 +127,13 @@
             </div>
         </div>
         
-        <button class="slider-btn prev-btn" id="prevBtn">❮</button>
-        <button class="slider-btn next-btn" id="nextBtn">❯</button>
+        <button class="slider-btn prev-btn" onclick="moveSlide(-1, 'slider1', 'sliderNav1')">❮</button>
+        <button class="slider-btn next-btn" onclick="moveSlide(1, 'slider1', 'sliderNav1')">❯</button>
         
-        <div class="slider-nav" id="sliderNav">
-            <div class="slider-dot active" data-index="0"></div>
-            <div class="slider-dot" data-index="1"></div>
-            <div class="slider-dot" data-index="2"></div>
+        <div class="slider-nav" id="sliderNav1">
+            <div class="slider-dot active" data-index="0" onclick="goToSlide(0, 'slider1', 'sliderNav1')"></div>
+            <div class="slider-dot" data-index="1" onclick="goToSlide(1, 'slider1', 'sliderNav1')"></div>
+            <div class="slider-dot" data-index="2" onclick="goToSlide(2, 'slider1', 'sliderNav1')"></div>
         </div>
     </div>
 
@@ -47,9 +146,90 @@
       <div class="predict-txt">Не пропусти следующий прогноз</div>
       <a href="" class="ref-tg">Telegram</a>
     </div>
+    
+    <!-- Второй слайдер (дубликат) -->
+    <div class="slider-container second-slider" id="sliderContainer2">
+        <div class="slider" id="slider2">
+            <!-- Слайды -->
+            <div class="slide">
+                <img src="photo_2025-05-27_12-27-49.jpg" alt="Фото 1">
+            </div>
+            <div class="slide">
+                <img src="photo_2025-05-27_12-27-51.jpg" alt="Фото 2">
+            </div>
+            <div class="slide">
+                <img src="photo_2025-05-27_12-27-54.jpg" alt="Фото 3">
+            </div>
+        </div>
+        
+        <button class="slider-btn prev-btn" onclick="moveSlide(-1, 'slider2', 'sliderNav2')">❮</button>
+        <button class="slider-btn next-btn" onclick="moveSlide(1, 'slider2', 'sliderNav2')">❯</button>
+        
+        <div class="slider-nav" id="sliderNav2">
+            <div class="slider-dot active" data-index="0" onclick="goToSlide(0, 'slider2', 'sliderNav2')"></div>
+            <div class="slider-dot" data-index="1" onclick="goToSlide(1, 'slider2', 'sliderNav2')"></div>
+            <div class="slider-dot" data-index="2" onclick="goToSlide(2, 'slider2', 'sliderNav2')"></div>
+        </div>
+    </div>
 
     <script>
+        // Текущий индекс слайда для каждого слайдера
+        const currentSlides = {
+            slider1: 0,
+            slider2: 0
+        };
         
+        // Количество слайдов
+        const slideCount = 3;
+        
+        // Функция для перемещения слайдера
+        function moveSlide(direction, sliderId, navId) {
+            const slider = document.getElementById(sliderId);
+            const nav = document.getElementById(navId);
+            
+            currentSlides[sliderId] += direction;
+            
+            // Проверка границ
+            if (currentSlides[sliderId] >= slideCount) {
+                currentSlides[sliderId] = 0;
+            } else if (currentSlides[sliderId] < 0) {
+                currentSlides[sliderId] = slideCount - 1;
+            }
+            
+            // Перемещение слайдера
+            slider.style.transform = `translateX(-${currentSlides[sliderId] * 100}%)`;
+            
+            // Обновление точек навигации
+            updateDots(navId, currentSlides[sliderId]);
+        }
+        
+        // Функция для перехода к конкретному слайду
+        function goToSlide(index, sliderId, navId) {
+            const slider = document.getElementById(sliderId);
+            const nav = document.getElementById(navId);
+            
+            currentSlides[sliderId] = index;
+            slider.style.transform = `translateX(-${currentSlides[sliderId] * 100}%)`;
+            updateDots(navId, currentSlides[sliderId]);
+        }
+        
+        // Функция для обновления точек навигации
+        function updateDots(navId, activeIndex) {
+            const dots = document.querySelectorAll(`#${navId} .slider-dot`);
+            dots.forEach((dot, index) => {
+                if (index === activeIndex) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+        
+        // Автоматическое перелистывание слайдов (опционально)
+        setInterval(() => {
+            moveSlide(1, 'slider1', 'sliderNav1');
+            moveSlide(1, 'slider2', 'sliderNav2');
+        }, 5000);
     </script>
 </body>
-</html>
+                    </html>
