@@ -3,263 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kwork-bk</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-        }
-        
-        header {
-            background-color: #f0f0f0;
-            padding: 15px;
-            text-align: left;
-        }
-        
-        .sleng {
-            font-weight: bold;
-            font-size: 1.1em;
-        }
-        
-        /* Основные стили слайдера */
-        .slider-container {
-            position: relative;
-            max-width: 600px; /* Фиксированная ширина */
-            margin: 20px auto;
-            overflow: hidden;
-            padding: 0 15px; /* Отступы по бокам */
-        }
-        
-        .slider {
-            display: flex;
-            transition: transform 0.5s ease;
-            height: 300px; /* Фиксированная высота */
-        }
-        
-        .slide {
-            min-width: 100%;
-            box-sizing: border-box;
-            padding: 0 5px; /* Отступ между слайдами */
-        }
-        
-        .slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Чтобы фото не искажались */
-            border-radius: 12px; /* Скругленные углы */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        
-        /* Кнопки слайдера */
-        .slider-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.5);
-            color: white;
-            border: none;
-            padding: 12px;
-            border-radius: 50%;
-            cursor: pointer;
-            z-index: 10;
-            font-size: 18px;
-        }
-        
-        .prev-btn {
-            left: 20px;
-        }
-        
-        .next-btn {
-            right: 20px;
-        }
-        
-        /* Навигационные точки */
-        .slider-nav {
-            display: flex;
-            justify-content: center;
-            padding: 15px 0;
-        }
-        
-        .slider-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #ccc;
-            margin: 0 5px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        
-        .slider-dot.active {
-            background: #333;
-        }
-        
-        /* Стили для кнопок и текста */
-        .get-bonus, .predict {
-            text-align: left;
-            margin: 30px 0;
-            padding: 20px;
-        }
-        
-        .bonus-txt, .predict-txt {
-            font-size: 1.2em;
-            margin-bottom: 15px;
-            font-weight: bold;
-        }
-        
-        .btn-get-bonus, .ref-tg {
-            display: inline-block;
-            padding: 12px 25px;
-            background-color: #4CAF50;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: bold;
-            transition: background 0.3s;
-        }
-        
-        .btn-get-bonus:hover, .ref-tg:hover {
-            background-color: #45a049;
-        }
-        
-        /* Адаптивность для мобилок */
-        @media (max-width: 600px) {
-            .slider {
-                height: 250px; /* Уменьшаем высоту на мобилках */
-            }
-            
-            .slider-container {
-                max-width: 90%; /* Уже на маленьких экранах */
-            }
-        }
-    </style>
+    <title>Пример Bootstrap</title>
+    <!-- Подключаем CSS Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-  <header>
-    <div class="sleng">Не являемся финансовым советчиком,<br>
-         но финансы имеем</div>
-  </header>
-  
-  <!-- Первый слайдер -->
-  <div class="slider-container" id="sliderContainer1">
-      <div class="slider" id="slider1">
-          <!-- Слайды -->
-          <div class="slide">
-              <img src="photo_2025-05-27_12-27-49.jpg" alt="Фото 1">
-          </div>
-          <div class="slide">
-              <img src="photo_2025-05-27_12-27-51.jpg" alt="Фото 2">
-          </div>
-          <div class="slide">
-              <img src="photo_2025-05-27_12-27-54.jpg" alt="Фото 3">
-          </div>
-      </div>
-      
-      <button class="slider-btn prev-btn" onclick="moveSlide(-1, 'slider1', 'sliderNav1')">❮</button>
-      <button class="slider-btn next-btn" onclick="moveSlide(1, 'slider1', 'sliderNav1')">❯</button>
-      
-      <div class="slider-nav" id="sliderNav1">
-          <div class="slider-dot active" data-index="0" onclick="goToSlide(0, 'slider1', 'sliderNav1')"></div>
-          <div class="slider-dot" data-index="1" onclick="goToSlide(1, 'slider1', 'sliderNav1')"></div>
-          <div class="slider-dot" data-index="2" onclick="goToSlide(2, 'slider1', 'sliderNav1')"></div>
-      </div>
-  </div>
+    <!-- Навигационная панель -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#">Мой сайт</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Главная</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">О нас</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Контакты</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-  <div class="get-bonus">
-    <div class="bonus-txt">Забирай бонусы в лучшей БК</div>
-    <a href="#" class="btn-get-bonus">Забрать бонус</a>
-  </div>
+    <!-- Основной контент -->
+    <div class="container mt-4">
+        <div class="row">
+            <!-- Главный контент -->
+            <div class="col-md-8">
+                <h1>Добро пожаловать на мой сайт</h1>
+                <p class="lead">Это пример страницы с использованием Bootstrap 5.</p>
+                
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Карточка Bootstrap</h5>
+                        <p class="card-text">Это пример карточки - одного из многих компонентов Bootstrap.</p>
+                        <a href="#" class="btn btn-primary">Подробнее</a>
+                    </div>
+                </div>
+                
+                <div class="alert alert-success">
+                    <strong>Успех!</strong> Это уведомление об успешном действии.
+                </div>
+            </div>
+            
+            <!-- Боковая панель -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        Боковая панель
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Полезные ссылки</h5>
+                        <ul class="list-group">
+                            <li class="list-group-item">Ссылка 1</li>
+                            <li class="list-group-item">Ссылка 2</li>
+                            <li class="list-group-item">Ссылка 3</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-  <div class="predict">
-    <div class="predict-txt">Не пропусти следующий прогноз</div>
-    <a href="#" class="ref-tg">Telegram</a>
-  </div>
-  
-  <!-- Второй слайдер (дубликат) -->
-  <div class="slider-container">
-      <div class="slider" id="slider2">
-          <!-- Слайды -->
-          <div class="slide">
-              <img src="photo_2025-05-27_12-27-49.jpg" alt="Фото 1">
-          </div>
-          <div class="slide">
-              <img src="photo_2025-05-27_12-27-51.jpg" alt="Фото 2">
-          </div>
-          <div class="slide">
-              <img src="photo_2025-05-27_12-27-54.jpg" alt="Фото 3">
-          </div>
-      </div>
-      
-      <button class="slider-btn prev-btn" onclick="moveSlide(-1, 'slider2', 'sliderNav2')">❮</button>
-      <button class="slider-btn next-btn" onclick="moveSlide(1, 'slider2', 'sliderNav2')">❯</button>
-      
-      <div class="slider-nav" id="sliderNav2">
-          <div class="slider-dot active" data-index="0" onclick="goToSlide(0, 'slider2', 'sliderNav2')"></div>
-          <div class="slider-dot" data-index="1" onclick="goToSlide(1, 'slider2', 'sliderNav2')"></div>
-          <div class="slider-dot" data-index="2" onclick="goToSlide(2, 'slider2', 'sliderNav2')"></div>
-      </div>
-  </div>
+    <!-- Подвал -->
+    <footer class="bg-dark text-white mt-4 p-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>О компании</h5>
+                    <p>Краткое описание вашей компании.</p>
+                </div>
+                <div class="col-md-6">
+                    <h5>Контакты</h5>
+                    <p>Email: info@example.com</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-  <script>
-      // Текущий индекс слайда для каждого слайдера
-      const currentSlides = {
-          slider1: 0,
-          slider2: 0
-      };
-      
-      // Количество слайдов
-      const slideCount = 3;
-      
-      // Функция для перемещения слайдера
-      function moveSlide(direction, sliderId, navId) {
-          const slider = document.getElementById(sliderId);
-          const nav = document.getElementById(navId);
-          
-          currentSlides[sliderId] += direction;
-          
-          // Проверка границ
-          if (currentSlides[sliderId] >= slideCount) {
-              currentSlides[sliderId] = 0;
-          } else if (currentSlides[sliderId] < 0) {
-              currentSlides[sliderId] = slideCount - 1;
-          }
-          
-          // Перемещение слайдера
-          slider.style.transform = `translateX(-${currentSlides[sliderId] * 100}%)`;
-          
-          // Обновление точек навигации
-          updateDots(navId, currentSlides[sliderId]);
-      }
-      
-      // Функция для перехода к конкретному слайду
-      function goToSlide(index, sliderId, navId) {
-          const slider = document.getElementById(sliderId);
-          const nav = document.getElementById(navId);
-          
-          currentSlides[sliderId] = index;
-          slider.style.transform = `translateX(-${currentSlides[sliderId] * 100}%)`;
-          updateDots(navId, currentSlides[sliderId]);
-      }
-      
-      // Функция для обновления точек навигации
-      function updateDots(navId, activeIndex) {
-          const dots = document.querySelectorAll(`#${navId} .slider-dot`);
-          dots.forEach((dot, index) => {
-              if (index === activeIndex) {
-                  dot.classList.add('active');
-              } else {
-                  dot.classList.remove('active');
-              }
-          });
-      }
-      
-      // Автоматическое перелистывание слайдов (опционально)
-      setInterval(() => {
-          moveSlide(1, 'slider1', 'sliderNav1');
-          moveSlide(1, 'slider2', 'sliderNav2');
-      }, 5000);
-  </script>
+    <!-- Подключаем JS Bootstrap (с Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
